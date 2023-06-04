@@ -2,6 +2,7 @@ package com.atipera.controller;
 
 import com.atipera.infrastructure.GithubApiGateway;
 import com.atipera.model.GitHubResponse;
+import com.atipera.service.GithubService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +17,10 @@ import java.util.List;
 @AllArgsConstructor
 public class GithubRepoController {
 
-    private final GithubApiGateway githubApiGateway;
+    private final GithubService githubService;
 
     @GetMapping("{username}")
-    public ResponseEntity<List<GitHubResponse>> getAllRepos(@PathVariable String username) {
-        return githubApiGateway.getUserRepos(username);
+    public List<GitHubResponse> getAllRepos(@PathVariable String username) {
+        return githubService.getNotForkRepos(username);
     }
 }
