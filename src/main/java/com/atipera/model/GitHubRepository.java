@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-public class GitHubRepoResponse {
+public class GitHubRepository {
 
     @JsonProperty("name")
     private String name;
