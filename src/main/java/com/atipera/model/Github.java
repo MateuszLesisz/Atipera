@@ -9,6 +9,6 @@ public class Github {
 
     private String repositoryName;
     private String ownerLogin;
-    private List<GithubBranch> branch;
+    private List<GithubBranch> branches;
 
 }
