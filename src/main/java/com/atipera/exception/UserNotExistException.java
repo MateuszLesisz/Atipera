@@ -4,9 +4,9 @@ import org.springframework.http.HttpStatus;
 
 public class UserNotExistException extends GithubException {
 
-    private static final HttpStatus DEFAULT_HTTP_STATUS = HttpStatus.BAD_REQUEST;
+    private static final HttpStatus DEFAULT_HTTP_STATUS = HttpStatus.NOT_FOUND;
 
-    public UserNotExistException(String nickname) {
-        super(String.format("User with nickname exist. {nickname=%s}", nickname), DEFAULT_HTTP_STATUS);
+    public UserNotExistException(String username) {
+        super(String.format("User with given username does not exist.", username), DEFAULT_HTTP_STATUS);
     }
 }

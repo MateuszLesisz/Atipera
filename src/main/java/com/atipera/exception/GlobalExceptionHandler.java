@@ -13,7 +13,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity
                 .status(exception.getHttpStatus())
                 .body(ErrorResponse.builder()
-                        .statusCode(exception.getHttpStatus().value())
+                        .status(exception.getHttpStatus().value())
                         .message(exception.getMessage())
                         .build());
     }

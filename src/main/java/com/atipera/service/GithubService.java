@@ -1,9 +1,11 @@
 package com.atipera.service;
 
+import com.atipera.exception.UserNotExistException;
 import com.atipera.infrastructure.GithubApiGateway;
 import com.atipera.model.GitHubRepository;
 import com.atipera.model.Github;
 import com.atipera.model.GithubBranch;
+import com.atipera.model.User;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,17 +20,21 @@ public class GithubService {
     private final GithubApiGateway githubApiGateway;
 
     public List<Github> createGithubResponse(String username) {
-        List<Github> response = new ArrayList<>();
-        List<GitHubRepository> repositories = getNotForkRepos(username);
+        User user = githubApiGateway.getUser(username).getBody();
+        if (user.getName().equals(username)) {
+            List<Github> response = new ArrayList<>();
+            List<GitHubRepository> repositories = getNotForkRepos(username);
 
-        repositories.forEach(f -> {
-            Github github = new Github();
-            github.setRepositoryName(f.getName());
-            github.setOwnerLogin(f.getOwner().getLogin());
-            github.setBranches(getBranches(f.getOwner().getLogin(), f.getName()));
-            response.add(github);
-        });
-        return response;
+            repositories.forEach(f -> {
+                Github github = new Github();
+                github.setRepositoryName(f.getName());
+                github.setOwnerLogin(f.getOwner().getLogin());
+                github.setBranches(getBranches(f.getOwner().getLogin(), f.getName()));
+                response.add(github);
+            });
+            return response;
+        }
+        throw new UserNotExistException(username);
     }
 
     private List<GitHubRepository> getNotForkRepos(String username) {
