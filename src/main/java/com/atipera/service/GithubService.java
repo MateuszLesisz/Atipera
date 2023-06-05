@@ -25,7 +25,7 @@ public class GithubService {
             Github github = new Github();
             github.setRepositoryName(f.getName());
             github.setOwnerLogin(f.getOwner().getLogin());
-            github.setBranch(getBranches(f.getOwner().getLogin(), f.getName()));
+            github.setBranches(getBranches(f.getOwner().getLogin(), f.getName()));
             response.add(github);
         });
         return response;
