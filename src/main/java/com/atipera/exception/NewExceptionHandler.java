@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
-public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+public class NewExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(GithubException.class)
     ResponseEntity<ErrorResponse> handleBusinessException(GithubException exception) {

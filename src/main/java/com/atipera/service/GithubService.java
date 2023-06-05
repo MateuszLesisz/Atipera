@@ -1,14 +1,12 @@
 package com.atipera.service;
 
 import com.atipera.exception.UserNotExistException;
-import com.atipera.exception.WrongAcceptHeaderTypeException;
 import com.atipera.infrastructure.GithubApiGateway;
 import com.atipera.model.GitHubRepository;
 import com.atipera.model.Github;
 import com.atipera.model.GithubBranch;
 import com.atipera.model.User;
 import lombok.AllArgsConstructor;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,8 +19,7 @@ public class GithubService {
 
     private final GithubApiGateway githubApiGateway;
 
-    public List<Github> createGithubResponse(String username, String header) {
-        checkHeader(header);
+    public List<Github> createGithubResponse(String username) {
         User user = githubApiGateway.getUser(username).getBody();
         if (user.getName().equals(username)) {
             List<Github> response = new ArrayList<>();
@@ -57,12 +54,6 @@ public class GithubService {
             return allBranches;
         } else {
             return Collections.emptyList();
-        }
-    }
-
-    private void checkHeader(String header) {
-        if (header.equals(MediaType.APPLICATION_XML_VALUE)) {
-            throw new WrongAcceptHeaderTypeException(header);
         }
     }
 }

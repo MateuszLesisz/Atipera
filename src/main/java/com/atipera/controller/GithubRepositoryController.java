@@ -14,8 +14,8 @@ public class GithubRepositoryController {
 
     private final GithubService githubService;
 
-    @GetMapping("{username}")
-    public List<Github> getAllRepos(@RequestHeader(value = "Accept") String header, @PathVariable String username) {
-        return githubService.createGithubResponse(username, header);
+    @GetMapping(value = "{username}")
+    public List<Github> getAllRepos(@PathVariable String username) {
+        return githubService.createGithubResponse(username);
     }
 }
